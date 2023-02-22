@@ -3,45 +3,44 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class Jogo extends StatefulWidget {
-  const Jogo({super.key});
+  String resultado;
+  Jogo(this.resultado, {super.key});
 
   @override
   State<Jogo> createState() => _JogoState();
 }
 
 class _JogoState extends State<Jogo> {
-  var _imagemApp = AssetImage("images/moeda_cara.png");
+  var _imagemApp;
   @override
   Widget build(BuildContext context) {
-    List opcoes = ['cara', 'coroa'];
-    int numero = Random().nextInt(opcoes.length);
-    var escolhaApp = opcoes[numero];
-
-    switch (escolhaApp) {
+    switch (widget.resultado) {
       case "cara":
         setState(() {
-          _imagemApp = AssetImage("imagens/moeda_cara.png");
+          _imagemApp = "imagens/moeda_cara.png";
         });
         break;
       case "coroa":
         setState(() {
-          _imagemApp = AssetImage("imagens/moeda_coroa.png");
+          _imagemApp = "imagens/moeda_coroa.png";
         });
         break;
     }
 
+    void _voltar() {
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       body: Container(
-        color: Color.fromARGB(193, 26, 196, 114),
+        color: const Color(0xff61bd86),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image(image: this._imagemApp),
+            Image.asset(this._imagemApp),
             GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: _voltar,
               child: Image.asset("imagens/botao_voltar.png"),
             )
           ],
